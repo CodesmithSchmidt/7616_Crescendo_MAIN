@@ -163,13 +163,13 @@ m_pidController.setSmartMotionAllowedClosedLoopError(allowedErr, smartMotionSlot
         SmartDashboard.putNumber("Output", m_motor.getAppliedOutput());
 
   }
-  
+  //This doesn't work when called from RobotContainer with a lambda expression command
   public void goToSetPoint(double setPoint){
     m_pidController.setReference(setPoint, CANSparkMax.ControlType.kPosition);
   }
 
 
-  //test functions just to make sure that the motors work
+  //test functions just to make sure that the motors work **They do; these functions work
   public void doSomethingPlease(){
     m_motor.set(.5);
   }
