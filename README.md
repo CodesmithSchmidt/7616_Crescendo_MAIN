@@ -1,5 +1,5 @@
-Origin of project is:
-
+# Origin of project is:
+(Credit where due!)
 # MAXSwerve Java Template v2023.1
 
 See [the online changelog](https://github.com/REVrobotics/MAXSwerve-Java-Template/blob/main/CHANGELOG.md) for information about updates to the template that may have been released since you created your project.
@@ -23,6 +23,7 @@ It is possible that this project will not work for your robot right out of the b
 
 These values can be adjusted in the `Constants.java` file.
 
+# Our Additions:
 
 Added subsystems for our specific robot, including a "Scoring" subsystem and an "Arm" subsystem
 
