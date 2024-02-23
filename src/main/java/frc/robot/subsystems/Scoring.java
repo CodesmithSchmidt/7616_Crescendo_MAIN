@@ -11,17 +11,18 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 
-import frc.robot.Constants.RobotConstants;;
+import frc.robot.Constants.ManipulatorConstants;
+
 
 
 public class Scoring extends SubsystemBase {
 
   private final TalonFX 
-m_shooter1 = new TalonFX(RobotConstants.kShooter1_CANID);
+m_shooter1 = new TalonFX(ManipulatorConstants.kShooter1_CANID);
 private final TalonFX
-m_shooter2 = new TalonFX(RobotConstants.kShooter2_CANID);
+m_shooter2 = new TalonFX(ManipulatorConstants.kShooter2_CANID);
 private final CANSparkMax
-m_intake = new CANSparkMax(RobotConstants.kIntake1_CANID, MotorType.kBrushless);
+m_intake = new CANSparkMax(ManipulatorConstants.kIntake1_CANID, MotorType.kBrushless);
 
   /** Creates a new Scoring. */
   public Scoring() {

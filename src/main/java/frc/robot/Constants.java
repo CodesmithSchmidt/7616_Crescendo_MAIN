@@ -173,7 +173,7 @@ public final class Constants {
   // Create new class for robot arm/intake/shooter constants.
   // As the robot gets built, keep this up to date with the number of motor controllers
   //  that are being used to run/power the arm/intake/shooter 
-  public static final class RobotConstants {
+  public static final class ManipulatorConstants {
     public static final int kShooter1_CANID = 12;
     public static final int kShooter2_CANID = 13;
     public static final int kIntake1_CANID = 15;
@@ -181,14 +181,14 @@ public final class Constants {
     public static final int kArm2_CANID = 17;
 
     public static final int kClimb_CANID = 18;
-  
+  /*
     public static final double kPickupSetpoint = 0;
     public static final double kShootingSetpoint = 0;
     public static final double kAmpSetpoint = 0;
     public static final double kSetHookSetpoint = 0;
     public static final double kReleaseHookSetpoint = 0;
-
-
+*/
+/*
       //These are fake gains; must be determined for Robot
     public static final double kSVolts = 1;
     public static final double kGVolts = 1;
@@ -197,12 +197,12 @@ public final class Constants {
 
     public static final double kMaxVelocityRadPerSecond = Math.PI/4;
     public static final double kMaxAccelerationRadPerSecSquared = Math.PI;
-    
+  */  
         // The offset of the arm from the horizontal in its neutral position,
     // measured from the horizontal
-    public static final double kArmOffset = 0.333;
-    public static final int kEncoderPPR = 1024;
-    public static final double kEncoderDistancePerPulse = 2.0 * Math.PI / kEncoderPPR;
+    //public static final double kArmOffset = 0.333;
+    //public static final int kEncoderPPR = 1024;
+    //public static final double kEncoderDistancePerPulse = 2.0 * Math.PI / kEncoderPPR;
     // PID constants (need tuning)
 
     public static final double kP_arm = 0;

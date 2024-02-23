@@ -19,7 +19,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Arm2;
 import frc.robot.subsystems.Scoring;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -37,7 +37,7 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private final Arm m_robotArm = new Arm();
+  private final Arm2 m_robotArm = new Arm2();
   private final Scoring m_robotScorer = new Scoring();
 
   // The driver's controller
@@ -61,6 +61,12 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
                 true, true),
             m_robotDrive));
+
+  //  m_robotArm.setDefaultCommand(new RunCommand(
+    //    () -> m_robotArm.setSpeed(
+      //      m_driverController2.getLeftY()), m_robotArm));
+
+
   }
 
   /**
@@ -73,8 +79,9 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
 
-   //Controller 1: Set wheels in X
+   
   private void configureButtonBindings() {
+    //Controller 1: Set wheels in X
     new JoystickButton(m_driverController, Button.kSquare.value)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
@@ -110,16 +117,19 @@ public class RobotContainer {
 //Additional buttons here for setting arm position to specific setPoints.
 //Will pass values to the "setReference" in the Arm subsystem for PID loop to move to setPoints
 //Driver controller 2 will set arm
-
+/*
 new JoystickButton(m_driverController2, Button.kTriangle.value)
     .whileTrue(new StartEndCommand(
         () -> m_robotArm.doSomethingPlease(),
         () -> m_robotArm.stopSomethingPlease(),
         m_robotArm));
-
+*/
 
 //Arm to Ground pickup 
-
+new JoystickButton(m_driverController2, 1)
+    .onTrue(new RunCommand(
+        () -> m_robotArm.setPosition(120),
+        m_robotArm ));
 
 //Arm to Shooting point
 
