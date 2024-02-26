@@ -21,6 +21,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Arm2;
 import frc.robot.subsystems.Scoring;
+import frc.robot.subsystems.Climber;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
@@ -39,6 +40,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final Arm2 m_robotArm = new Arm2();
   private final Scoring m_robotScorer = new Scoring();
+  private final Climber m_robotClimber = new Climber();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -125,27 +127,42 @@ new JoystickButton(m_driverController2, Button.kTriangle.value)
         m_robotArm));
 */
 
-//Arm to Ground pickup 
+//Arm to Ground pickup A
 new JoystickButton(m_driverController2, 1)
     .onTrue(new RunCommand(
-        () -> m_robotArm.setPosition(120),
+        () -> m_robotArm.setPosition(154),
         m_robotArm ));
 
-//Arm to Shooting point
+//Arm to Shooting point X
 
-//Arm to Amp scoring point
-//Arm to hook set point
-//Arm to hook release point
-/* Alternate control using CommandXboxController - didn't work, but keeping for copy-pasta if we go back
+new JoystickButton(m_driverController2, 3)
+    .onTrue(new RunCommand(
+        () -> m_robotArm.setPosition(175),
+        m_robotArm));
 
-    m_driverController2.start()
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  m_robotArm.goToSetPoint(0.1);
-                },
-                m_robotArm));
-*/
+//Arm to Amp scoring point B
+new JoystickButton(m_driverController2, 2)
+    .onTrue(new RunCommand(
+        () -> m_robotArm.setPosition(235),
+        m_robotArm));
+
+//Arm to hook set point START
+new JoystickButton(m_driverController2, 8)
+    .onTrue(new RunCommand(
+        () -> m_robotArm.setPosition(235),
+        m_robotArm));
+//Arm to hook release point BACK
+new JoystickButton(m_driverController2, 7)
+    .onTrue(new RunCommand(
+        () -> m_robotArm.setPosition(215),
+        m_robotArm));
+
+//Engage climber motor  Y
+new JoystickButton(m_driverController2, 4)
+    .whileTrue(new StartEndCommand(
+        () -> m_robotClimber.goUp(),
+        () -> m_robotClimber.stop(),
+        m_robotClimber));
 
   }
 

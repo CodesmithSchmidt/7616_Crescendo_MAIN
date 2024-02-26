@@ -11,15 +11,15 @@ import java.util.function.Supplier;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
+//import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
+//import edu.wpi.first.math.MathUtil;
+//import edu.wpi.first.math.geometry.Pose3d;
+//import edu.wpi.first.math.geometry.Translation2d;
+//import edu.wpi.first.wpilibj.DriverStation;
+//import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.ManipulatorConstants;
@@ -30,7 +30,7 @@ public class Arm2 extends SubsystemBase {
   armPIDSlot = 0;
  
   private static final double
-    armNormal_P = 1.0/180.0,
+    armNormal_P = .025,
     armNormal_I = 0.0,
     armNormal_D = 0.0;
 
@@ -42,20 +42,21 @@ public class Arm2 extends SubsystemBase {
 
   private final double thresholdDEG = 2.0;
 
-  private CANSparkFlex arm1;
-  private CANSparkFlex arm2;
+  private CANSparkMax arm1;
+  private CANSparkMax arm2;
   private SparkPIDController armPIDController;
   private AbsoluteEncoder armAbsoluteEncoder;
  
   public Arm2() {
-    arm1 = new CANSparkFlex(Constants.ManipulatorConstants.kArm1_CANID, MotorType.kBrushless);
-    arm2 = new CANSparkFlex(Constants.ManipulatorConstants.kArm2_CANID, MotorType.kBrushless);
+    arm1 = new CANSparkMax(Constants.ManipulatorConstants.kArm1_CANID, MotorType.kBrushless);
+    arm2 = new CANSparkMax(Constants.ManipulatorConstants.kArm2_CANID, MotorType.kBrushless);
     arm1.restoreFactoryDefaults();
     arm2.restoreFactoryDefaults();
     arm2.follow(arm1, true);
+    
     armPIDController = arm1.getPIDController();
     armAbsoluteEncoder = arm1.getAbsoluteEncoder(Type.kDutyCycle);
-
+    armAbsoluteEncoder.setInverted(true);
     armAbsoluteEncoder.setPositionConversionFactor(360.0);
     armPIDController.setFeedbackDevice(armAbsoluteEncoder);
 
@@ -77,19 +78,19 @@ public class Arm2 extends SubsystemBase {
   public void setPosition(double pos) {
     armPIDController.setReference(pos, CANSparkMax.ControlType.kPosition);
   }
-  
+  //(probably should) give this method the "setpoint", and subtract the current position
   public double getError() {
     return 0.0;
   }
-
+//Should not return true until Error is less then set threshold.
   public boolean isFinishedMoving() {
     return getError() < thresholdDEG;
   }
-
+//Checks if its at position
   public boolean isAtPosition(ArmPosition pos) {
     return Math.abs(getArmPosition() - pos.degreePos) < thresholdDEG;
   }
-
+//Gets arm position
   public double getArmPosition() {
     return armAbsoluteEncoder.getPosition();
   }
@@ -107,7 +108,7 @@ public class Arm2 extends SubsystemBase {
 
   }
 
-
+//Goes to positions based on what it is going to look at.
   public enum ArmPosition {
     FLOOR(0.0),
     AMP(90.0),
